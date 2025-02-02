@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'General SSH Security Group'
+
+Parameters:
+  SecurityGroupDescription:
+    Description: 'Security Group Description'
+    Type: String
+    Default: 'Enable SSH access via port 22'
+
+Resources:
+  SSHSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: !Ref SecurityGroupDescription
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: '0.0.0.0/0'
+Outputs:
+  StackSSHSecurityGroup:
+    Description: 'SSH Security Group'
+    Value: !Ref SSHSecurityGroup
+    Export:
+      Name: SSHSecurityGroup
